@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body>
+    <h1 style="background-color: antiquewhite;color: black;">用户输入</h1>
+    <form action="/index/" method="post">
+        <input type="text" name="url"/>
+        <input type="text" name="account"/>
+        <input type="text" name="password"/>
+        <input type="text" name="account_xpath"/>
+        <input type="text" name="password_xpath"/>
+        <input type="text" name="login_button_xpath"/>
+{#        <input type="password" name="password"/>#}
+        <input type="submit" value="提交"/>
+    </form>
+    <hr />
+    <h1 style="background-color: antiquewhite;color: black;">用例展示</h1>
+    <table border="1">
+        <thead>
+        <th>url</th>
+        <th>账号</th>
+        <th>密码</th>
+        <th>账号xpath</th>
+        <th>密码xpath</th>
+        <th>登录按键xpath</th>
+        </thead>
+        <tbody>
+            {% for line in data %}
+                <tr>
+                    <td>{{ line.url }}</td>
+                    <td>{{ line.account }}</td>
+                    <td>{{ line.password }}</td>
+                    <td>{{ line.account_xpath }}</td>
+                    <td>{{ line.password_xpath }}</td>
+                    <td>{{ line.login_button_xpath }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script src="/static/js/jquery-1.12.4.js"></script>
+</body>
+</html>

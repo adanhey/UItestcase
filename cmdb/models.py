@@ -17,11 +17,16 @@ class TestEnv(models.Model):
     login_button_xpath = models.CharField(max_length=1000)
 
 
+
 class TestPoint(models.Model):
     name = models.CharField(max_length=100)
-    env = models.IntegerField()
+    env_id = models.IntegerField()
 
 
 class PointStep(models.Model):
-    title = models.CharField
+    title = models.CharField(max_length=50)
+    xpath = models.CharField(max_length=1000)
+    action = models.CharField(max_length=20)
+    screen = models.CharField(max_length=50)
+
 

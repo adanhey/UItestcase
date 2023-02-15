@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
@@ -23,6 +23,9 @@
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="8c0d9e9c-8f8e-4de5-b7fd-95e916f1d810" dataset="main.cmdb_pointstep" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="8c0d9e9c-8f8e-4de5-b7fd-95e916f1d810" dataset="main.cmdb_testenv" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="8c0d9e9c-8f8e-4de5-b7fd-95e916f1d810" dataset="main.cmdb_testpoint" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="8c0d9e9c-8f8e-4de5-b7fd-95e916f1d810" dataset="main.cmdb_userinfo" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">

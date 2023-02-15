@@ -1,6 +1,6 @@
 import json
 
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
 from cmdb import models
 
@@ -31,14 +31,13 @@ def index(request):
     return render(request, "index.html", {"data": user_list})
 
 
-
-def delete_env(request,del_id):
+def delete_env(request, del_id):
     models.TestEnv.objects.filter(id=del_id).delete()
     user_list = models.TestEnv.objects.all()
-    return redirect('http://10.53.3.46:8000/index/')
+    return redirect('http://192.168.3.2:8000/index/')
 
 
-def edit_env(request):
+def edit_env(request, edit_id):
     if request.method == "POST":
         edit_id = request.POST.get("edit_id", None)
         url = request.POST.get("edit_url", None)

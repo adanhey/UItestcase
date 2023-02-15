@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', views.index),
     re_path('^index/delete_env/(\d+)', views.delete_env),
-    path('edit_env/', views.edit_env),
+    re_path('edit_env/', views.edit_env),
 ]

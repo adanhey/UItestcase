@@ -31,6 +31,103 @@
     </style>
 </head>
 <body>
+    <script>
+        var url = 'edit_env/';
+        var columns = [
+            {
+                checkbox: true,
+                visible: true                  //是否显示复选框
+            },
+            {
+                field: 'id',
+                title: 'ID'
+
+            }, {
+                field: 'name',
+                title: '姓名'
+            }, {
+                field: 'age',
+                title: '年龄',
+                sortable: true
+            },
+             {
+                field: 'tel',
+                title: '电话'
+            },
+             {
+                 field:'operate',
+                 title: '操作',
+                 width: 120,
+                 align: 'center',
+                 valign: 'middle',
+                 formatter: actionFormatter
+             }
+        ];
+        $("#table").bootstrapTable({
+            toolbar: '#toolbar',                //自定义工具按钮
+            url: url,                           //请求后台的URL（*）
+            method: 'get',                      //请求方式（*）
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            pageSize: 10,                       //每页的记录行数（*）
+            pageList: [10, 20, 50, 100, 'All'], //可供选择的每页的行数（*）
+            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber: 1,                      //初始化加载第一页，默认第一页
+            search: true,                       //是否显示表格搜索
+            showSearchButton: true,             //搜索确定按钮
+    {#        showSearchClearButton: true,       //清空输入框#}
+    {#        singleSelect: true,#}
+            clickToSelect: true,
+            showColumns: true,                  //是否显示所有的列
+            showRefresh: true,                  //是否显示刷新按钮
+            minimumCountColumns: 2,             //最少允许的列数
+            //height: 500,                      //行高，如果没有设置height属性，表格自动根据记录条数决定表格高度
+            classes: "table table-bordered table-striped",
+            showToggle: true,                   //是否显示详细视图和列表视图的切换按钮
+            columns: columns,                   //列参数
+            //detailView: true,                  //是否显示父子表
+            //得到查询的参数，会在url后面拼接，如：?rows=5&page=2&sortOrder=asc&search_kw=&_=1564105760651
+            queryParams: function (params) {
+                // params对象包含：limit, offset, search, sort, order
+                //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                var temp;
+                temp = {
+                    page: (params.offset / params.limit) + 1,   //页码,  //页码
+                    size: params.limit   //页面大小
+                    //查询框中的参数传递给后台
+                    //search_kw: $('#search-keyword').val(), // 请求时向服务端传递的参数
+                };
+                return temp;
+            }
+
+
+        });
+        //操作栏的格式化
+        function actionFormatter(value, row, index) {
+
+                var result = "";
+                result += '<a href="javascript:;" class="btn btn-xs btn-success" style="margin:5px" onclick="GetViewById(' + index + ')" view=\'view\')" title="查看">';
+                result += '<span class="glyphicon glyphicon-search"></span></a>';
+                result += '<a href="javascript:;" class="btn btn-xs btn-info" style="margin:5px" onclick="EditViewById(' + index+')" title="编辑">';
+                result += '<span class="glyphicon glyphicon-pencil"></span></a>';
+                result += '<a href="javascript:;" class="btn btn-xs btn-danger"  style="margin:5px" onclick="DeleteByIds(' + row.id + ')" title="删除">';
+                result += '<span class="glyphicon glyphicon-remove"></span></a>';
+                return result;
+            }
+    </script>
+    <script>
+        //定义表格操作编辑按钮 title="编辑"
+        function EditViewById(index){
+            alert(index);
+    {#        // 调出modal 框#}
+            var row = $("#table").bootstrapTable('getData')[index];
+            $("#modal_id").val(row.id);
+            $("#modal_name").val(row.name);
+            $("#modal_age").val(row.age);
+            $("#modal_tel").val(row.tel);
+            $("#myModal").modal();
+        }
+    </script>
     <div class="container">
         <h1 style="background-color: antiquewhite;color: black;">用户输入</h1>
         <form action="/index/" method="post">
@@ -69,9 +166,8 @@
                         <td>{{ line.login_button_xpath }}</td>
                         <td>
                             <a href="delete_env/{{line.id}}" class="btn btn-danger btn-sm">删除</a>
-{#                            <a href="delete_env/{{line.id}}" class="btn btn-danger btn-sm">编辑</a>#}
+                            <a onclick="EditViewById(' + index +')" class="btn btn-danger btn-sm">编辑</a>
                         </td>
-{#                        <td class="operate"><button type="button" class="btn btn-xs btn-danger del_row">删除</button></td>#}
                     </tr>
                 {% endfor %}
             </tbody>

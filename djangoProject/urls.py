@@ -19,6 +19,7 @@ from django.urls import re_path
 from cmdb import views
 
 urlpatterns = [
+    path('front_page/', templates.depart.edit.html),
     path('admin/', admin.site.urls),
     path('index/', views.index),
     re_path('^index/delete_env/(\d+)', views.delete_env),

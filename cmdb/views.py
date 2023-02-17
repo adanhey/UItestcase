@@ -9,33 +9,44 @@ from cmdb import models
 
 
 def index(request):
-    # return HttpResponse("hello world!")
-    if request.method == "POST":
-        url = request.POST.get("url", None)
-        account = request.POST.get("account", None)
-        password = request.POST.get("password", None)
-        account_xpath = request.POST.get("account_xpath", None)
-        password_xpath = request.POST.get("password_xpath", None)
-        login_button_xpath = request.POST.get("login_button_xpath", None)
-        # username = request.POST.get("username", None)
-        # password = request.POST.get("password", None)
-        models.TestEnv.objects.create(
-            url=url,
-            account=account,
-            password=password,
-            account_xpath=account_xpath,
-            password_xpath=password_xpath,
-            login_button_xpath=login_button_xpath,
-        )
+    case_list = models.TestEnv.objects.all()
+    return render(request, "index.html", {"data": case_list})
+
+
+def add_env(request):
+    if request.method == "GET":
+        return render(request, 'environment_add.html')
+    name = request.POST.get("name")
+    url = request.POST.get("url")
+    account = request.POST.get("account")
+    password = request.POST.get("password")
+    account_xpath = request.POST.get("account_xpath")
+    password_xpath = request.POST.get("password_xpath")
+    login_button_xpath = request.POST.get("login_xpath")
+    models.TestEnv.objects.create(name=name, url=url, account=account, password=password, account_xpath=account_xpath,
+                                  password_xpath=password_xpath, login_button_xpath=login_button_xpath)
+    return redirect("/index/")
+
+
+def delete_env(request):
+    nid = request.GET.get('nid')
+    models.TestEnv.objects.filter(id=nid).delete()
     user_list = models.TestEnv.objects.all()
-    return render(request, "index.html", {"data": user_list})
+    return redirect("/index/")
 
 
-def delete_env(request, del_id):
-    models.TestEnv.objects.filter(id=del_id).delete()
-    user_list = models.TestEnv.objects.all()
-    return redirect('http://10.53.3.46:8000/index/')
-
-
-def depart_edit(request):
-    return render(request, 'depart_edit.html')
+def edit_env(request, nid):
+    if request.method == "GET":
+        row_data = models.TestEnv.objects.filter(id=nid).first()
+        return render(request, 'environment_edit.html', {"row_data": row_data})
+    name = request.POST.get("name")
+    url = request.POST.get("url")
+    account = request.POST.get("account")
+    password = request.POST.get("password")
+    account_xpath = request.POST.get("account_xpath")
+    password_xpath = request.POST.get("password_xpath")
+    login_button_xpath = request.POST.get("login_xpath")
+    models.TestEnv.objects.filter(id=nid).update(name=name, url=url, account=account, password=password,
+                                                 account_xpath=account_xpath, password_xpath=password_xpath,
+                                                 login_button_xpath=login_button_xpath)
+    return redirect("/index/")

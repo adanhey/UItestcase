@@ -9,13 +9,13 @@ class UserInfo(models.Model):
 
 
 class TestEnv(models.Model):
+    name = models.CharField(max_length=200)
     url = models.CharField(max_length=200)
     account = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
     account_xpath = models.CharField(max_length=1000)
     password_xpath = models.CharField(max_length=1000)
     login_button_xpath = models.CharField(max_length=1000)
-
 
 
 class TestPoint(models.Model):
@@ -28,5 +28,3 @@ class PointStep(models.Model):
     xpath = models.CharField(max_length=1000)
     action = models.CharField(max_length=20)
     screen = models.CharField(max_length=50)
-
-

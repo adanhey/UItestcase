@@ -19,9 +19,11 @@ from django.urls import re_path
 from cmdb import views
 
 urlpatterns = [
-    path('front_page/', templates.depart.edit.html),
-    path('admin/', admin.site.urls),
+    # path('front_page/', templates.depart.edit.html),
+    path('environment/add/', views.add_env),
     path('index/', views.index),
-    re_path('^index/delete_env/(\d+)', views.delete_env),
-    re_path('edit_env/', views.edit_env),
+    path('environment/delete/',views.delete_env),
+    re_path('^environment/(\d+)/edit/', views.edit_env)
+    # re_path('^index/delete_env/(\d+)', views.delete_env),
+    # re_path('edit_env/', views.edit_env),
 ]

@@ -3,6 +3,7 @@ import json
 from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
 from cmdb import models
+from django.contrib import messages
 
 
 # Create your views here.
@@ -50,3 +51,35 @@ def edit_env(request, nid):
                                                  account_xpath=account_xpath, password_xpath=password_xpath,
                                                  login_button_xpath=login_button_xpath)
     return redirect("/index/")
+
+
+def case_list(request, nid):
+    row_data = models.TestPoint.objects.filter(env_id=nid).all()
+    print(row_data)
+    env_name = models.TestEnv.objects.filter(id=nid).first()
+    return render(request, 'case_list.html', {"case_data": row_data, "env": env_name})
+
+
+def case_add(request, nid):
+    if request.method == "GET":
+        return render(request, 'case_add.html', {"env_id": nid})
+    name = request.POST.get("case_name")
+    models.TestPoint.objects.create(name=name, env_id=nid)
+    return redirect("/case/%s/list" % str(nid))
+
+
+def delete_case(request):
+    nid = request.GET.get('nid')
+    env_id = request.GET.get("env_id")
+    models.TestPoint.objects.filter(id=nid).delete()
+    return redirect("/case/%s/list" % str(env_id))
+
+
+def case_edit(request, nid):
+    if request.method == "GET":
+        row_data = models.TestPoint.objects.filter(id=nid).first()
+        return render(request, 'case_edit.html', {"row_data": row_data})
+    env_id = request.GET.get("env_id")
+    name = request.POST.get("name")
+    models.TestEnv.objects.filter(id=nid).update(name=name)
+    return redirect("/case/%s/list" % str(env_id))

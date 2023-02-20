@@ -49,10 +49,10 @@
 <div>
     <div class="container">
         <div style="margin-bottom: 10px">
-            <a class="btn btn-success" href="/environment/add/">
+            <a class="btn btn-success" href="/case/{{ env.id }}/add/">
                 {# 可以添加一个 target="_blank" : 会打开一个新的标签页，如果不设置，会在原页面打开（这里我们还是在当前页面打开） #}
                 <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                新增环境
+                新增用例
             </a>
             {#新建一个 depart_add.html , 用来写新建部门界面#}
         </div>
@@ -60,7 +60,7 @@
             <!-- Default panel contents -->
             <div class="panel-heading">
                 <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                环境管理
+                用例管理 环境:{{ env.name }}
             </div>
 
             <!-- Table -->
@@ -69,33 +69,22 @@
                 <tr>
                     <th>序号</th>
                     <th>名称</th>
-                    <th>url</th>
-                    <th>账号</th>
-                    <th>密码</th>
-                    <th>账号xpath</th>
-                    <th>密码xpath</th>
-                    <th>登录按键xpath</th>
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for line in data %}
+                {% for line in case_data %}
                     <tr>
                         <td>{{ line.id }}</td>
                         <td>{{ line.name }}</td>
-                        <td>{{ line.url }}</td>
-                        <td>{{ line.account }}</td>
-                        <td>{{ line.password }}</td>
-                        <td>{{ line.account_xpath }}</td>
-                        <td>{{ line.password_xpath }}</td>
-                        <td>{{ line.login_button_xpath }}</td>
                         <td>
                             <a class="btn btn-primary btn-xs" href="/case/{{ line.id }}/list/">详情</a>
                             <a class="btn btn-primary btn-xs" href="/environment/{{ line.id }}/edit/">编辑</a>
                             {# btn ==> 添加btn的按钮#}
                             {# btn-primary ==> 蓝色按钮（按钮的样式）#}
                             {# btn-xs ==> 	这会让按钮看起来特别小（按钮大小）#}
-                            <a class="btn btn-danger btn-xs" href="/environment/delete/?nid={{ line.id }}">删除</a>
+                            <a class="btn btn-danger btn-xs"
+                               href="/case/delete/?nid={{ line.id }}&env_id={{ line.env_id }}">删除</a>
                         </td>
                     </tr>
                 {% endfor %}

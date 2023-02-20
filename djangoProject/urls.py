@@ -22,8 +22,12 @@ urlpatterns = [
     # path('front_page/', templates.depart.edit.html),
     path('environment/add/', views.add_env),
     path('index/', views.index),
-    path('environment/delete/',views.delete_env),
-    re_path('^environment/(\d+)/edit/', views.edit_env)
+    path('environment/delete/', views.delete_env),
+    path('case/delete/', views.delete_case),
+    re_path('^environment/(\d+)/edit/', views.edit_env),
+    re_path('^case/(\d+)/edit/', views.case_edit),
+    re_path('^case/(\d+)/list/', views.case_list),
+    re_path('^case/(\d+)/add/', views.case_add)
     # re_path('^index/delete_env/(\d+)', views.delete_env),
     # re_path('edit_env/', views.edit_env),
 ]

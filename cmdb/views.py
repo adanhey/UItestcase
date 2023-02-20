@@ -55,7 +55,6 @@ def edit_env(request, nid):
 
 def case_list(request, nid):
     row_data = models.TestPoint.objects.filter(env_id=nid).all()
-    print(row_data)
     env_name = models.TestEnv.objects.filter(id=nid).first()
     return render(request, 'case_list.html', {"case_data": row_data, "env": env_name})
 
@@ -78,8 +77,15 @@ def delete_case(request):
 def case_edit(request, nid):
     if request.method == "GET":
         row_data = models.TestPoint.objects.filter(id=nid).first()
-        return render(request, 'case_edit.html', {"row_data": row_data})
+        env_id = request.GET.get("env_id")
+        print(env_id)
+        return render(request, 'case_edit.html', {"row_data": row_data,"env_id": env_id})
     env_id = request.GET.get("env_id")
     name = request.POST.get("name")
-    models.TestEnv.objects.filter(id=nid).update(name=name)
+    models.TestPoint.objects.filter(id=nid).update(name=name)
     return redirect("/case/%s/list" % str(env_id))
+
+def step_list(request, nid):
+    row_data = models.PointStep.objects.filter(point_id=nid).all()
+    point_name = models.TestPoint.objects.filter(id=nid).first()
+    return render(request, 'step_list.html', {"case_data": row_data, "env": point_name})

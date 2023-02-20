@@ -27,7 +27,8 @@ urlpatterns = [
     re_path('^environment/(\d+)/edit/', views.edit_env),
     re_path('^case/(\d+)/edit/', views.case_edit),
     re_path('^case/(\d+)/list/', views.case_list),
-    re_path('^case/(\d+)/add/', views.case_add)
+    re_path('^case/(\d+)/add/', views.case_add),
+    re_path('^step/(\d+)/list/', views.step_list),
     # re_path('^index/delete_env/(\d+)', views.delete_env),
     # re_path('edit_env/', views.edit_env),
 ]

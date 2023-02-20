@@ -24,6 +24,7 @@ class TestPoint(models.Model):
 
 
 class PointStep(models.Model):
+    point_id = models.IntegerField()
     title = models.CharField(max_length=50)
     xpath = models.CharField(max_length=1000)
     action = models.CharField(max_length=20)
